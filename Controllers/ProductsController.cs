@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FINLOGIX.API.Data;
 using FINLOGIX.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace FINLOGIX.API.Controllers
 {
 
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -30,14 +32,14 @@ namespace FINLOGIX.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetProducts(int id)
         {
             var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             return Ok(product);
         }
 
         [HttpPost]
-        public IEnumerable<Product> Put()
+        public IEnumerable<Product> AddProduct()
         {
             return null;
         }
