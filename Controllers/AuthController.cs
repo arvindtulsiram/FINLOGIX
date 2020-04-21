@@ -28,7 +28,7 @@ namespace FINLOGIX.API.Controllers
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
-            if (await _repo.UserEists(userForRegisterDto.UserName))
+            if (await _repo.UserExists(userForRegisterDto.UserName))
                 return BadRequest("Username already exists!");
 
             var userToCreate = new User
@@ -79,9 +79,6 @@ namespace FINLOGIX.API.Controllers
             {
                 token = tokenHandler.WriteToken(token)
             });
-
         }
-
-
     }
 }

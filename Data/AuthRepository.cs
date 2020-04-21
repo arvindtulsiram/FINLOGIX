@@ -62,7 +62,7 @@ namespace FINLOGIX.API.Data
             }
         }
 
-        public async Task<bool> UserEists(string userName)
+        public async Task<bool> UserExists(string userName)
         {
             if (await _context.Users.AnyAsync(x => x.UserName == userName))
                 return true;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using FINLOGIX.API.Data;
@@ -38,6 +39,23 @@ namespace FINLOGIX.API.Controllers
             return Ok(userToReturn);
         }
 
-        
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserForDetailedDto userForDetailedDto)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var userFromRepo = await _repo.GetUser(id);
+
+            _mapper.Map(userForDetailedDto, userForDetailedDto);
+
+            if(await _repo.SaveAll())
+                return NoContent();
+
+            throw new System.Exception($"Updating user {id} failed on save");
+        }
+
+
+
     }
 }

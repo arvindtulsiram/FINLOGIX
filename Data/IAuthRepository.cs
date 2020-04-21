@@ -9,6 +9,6 @@ namespace FINLOGIX.API.Data
 
          Task<User> Login(string userName, string password);
 
-         Task<bool> UserEists(string userName);
+         Task<bool> UserExists(string userName);
     }
 }
